@@ -3,7 +3,7 @@
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <div class="container">
-    <a class="navbar-brand" href="{% url 'home' %}">Marketplace</a>
+    <a class="navbar-brand" href="{% url 'home' %}" style="color: black">Marketplace</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -11,26 +11,26 @@
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link {% if request.path == '/' or request.path == '/en/' %}active{% endif %}" href="{% url 'home' %}">Головна</a>
+          <a class="nav-link {% if request.path == '/' or request.path == '/en/' %}active{% endif %}" href="{% url 'home' %}" style="color: black">Головна</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link {% if '/products' in request.path %}active{% endif %}" href="{% url 'product-list' %}">Товари</a>
+          <a class="nav-link {% if '/products' in request.path %}active{% endif %}" href="{% url 'product-list' %}" style="color: black">Товари</a>
         </li>
 
         {% if user.is_authenticated %}
           {% if user.role == "is_seller" %}
           <li class="nav-item">
-            <a class="nav-link {% if '/products/product/add/' in request.path %}active{% endif %}" href="{% url 'product-add' %}">Створити товар</a>
+            <a class="nav-link {% if '/products/product/add/' in request.path %}active{% endif %}" href="{% url 'product-add' %}" style="color: black">Створити товар</a>
           </li>
           {% endif %}
           <li class="nav-item">
-            <a class="nav-link {% if '/orders/cart/' in request.path %}active{% endif %}" href="{% url 'cart' %}">Кошик</a>
+            <a class="nav-link {% if '/orders/cart/' in request.path %}active{% endif %}" href="{% url 'cart' %}" style="color: black">Кошик</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link {% if '/orders/' in request.path and not '/cart/' in request.path %}active{% endif %}" href="{% url 'order-list' %}">Замовлення</a>
+            <a class="nav-link {% if '/orders/' in request.path and not '/cart/' in request.path %}active{% endif %}" href="{% url 'order-list' %}" style="color: black">Замовлення</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link {% if '/users/profile/'|add:user.pk|stringformat:"s" in request.path %}active{% endif %}" href="{% url 'profile' user.pk %}">Профіль</a>
+            <a class="nav-link {% if '/users/profile/'|add:user.pk|stringformat:"s" in request.path %}active{% endif %}" href="{% url 'profile' user.pk %}" style="color: black">Профіль</a>
           </li>
         {% endif %}
       </ul>
@@ -43,10 +43,10 @@
       {% else %}
       <ul class="navbar-nav">
         <li class="nav-item">
-          <a class="nav-link {% if '/users/login/' in request.path %}active{% endif %}" href="{% url 'login' %}">Увійти</a>
+          <a class="nav-link {% if '/users/login/' in request.path %}active{% endif %}" href="{% url 'login' %}" style="color: black">Увійти</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link {% if '/users/register/' in request.path %}active{% endif %}" href="{% url 'register' %}">Реєстрація</a>
+          <a class="nav-link {% if '/users/register/' in request.path %}active{% endif %}" href="{% url 'register' %}" style="color: black">Реєстрація</a>
         </li>
       </ul>
       {% endif %}

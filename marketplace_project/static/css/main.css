@@ -167,3 +167,11 @@ nav a.active {
 .logout-btn:hover {
     background-color: #c82333; /* темніший червоний */
 }
+
+.nav-link {
+    color: black;
+}
+
+.nav-item {
+    color: black;
+}
