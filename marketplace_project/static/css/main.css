@@ -1,6 +1,3 @@
-/* =================== */
-/* Основні стилі сторінки */
-/* =================== */
 body {
     font-family: Arial, sans-serif;
     margin: 0;
@@ -15,9 +12,7 @@ body {
     background-color: white;
 }
 
-/* =================== */
-/* Навігація */
-/* =================== */
+
 .navbar .nav-link {
     transition: color 0.3s ease, background-color 0.3s ease;
     border-radius: 4px;
@@ -42,9 +37,7 @@ body {
     background-color: #c82333;
 }
 
-/* =================== */
-/* Сітка товарів */
-/* =================== */
+
 .product-grid {
     display: flex;
     flex-wrap: wrap;
@@ -73,9 +66,7 @@ body {
     box-shadow: 0 6px 12px rgba(0,0,0,0.2);
 }
 
-/* =================== */
-/* Кнопки */
-/* =================== */
+
 button {
     background-color: #28a745;
     color: white;
@@ -90,9 +81,7 @@ button:hover {
     background-color: #218838;
 }
 
-/* =================== */
-/* Відгуки */
-/* =================== */
+
 .review {
     border-top: 1px solid #ccc;
     padding: 10px 15px;
@@ -101,9 +90,7 @@ button:hover {
     border-radius: 4px;
 }
 
-/* =================== */
-/* Адаптивність */
-/* =================== */
+
 @media (max-width: 768px) {
     .product-grid {
         flex-direction: column;
@@ -128,19 +115,19 @@ button:hover {
     }
 }
 
-/* Navbar */
+
 nav {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
-    background-color: #ffffff; /* світлий фон */
+    background-color: #ffffff;
     padding: 10px;
     gap: 10px;
 }
 
 nav a {
-    color: black; /* чорний текст */
+    color: black;
     text-decoration: none;
     padding: 5px 10px;
     transition: color 0.3s ease, background-color 0.3s ease;
@@ -149,14 +136,14 @@ nav a {
 
 nav a:hover,
 nav a.active {
-    color: black; /* чорний текст при активності/ховері */
-    background-color: rgba(0, 0, 0, 0.05); /* легкий фон для ховера */
+    color: black;
+    background-color: rgba(0, 0, 0, 0.05);
 }
 
-/* Кнопка Вийти */
+
 .logout-btn {
-    background-color: #dc3545; /* червона кнопка */
-    color: white; /* текст білий */
+    background-color: #dc3545;
+    color: white;
     border: none;
     padding: 5px 10px;
     border-radius: 4px;
@@ -165,7 +152,7 @@ nav a.active {
 }
 
 .logout-btn:hover {
-    background-color: #c82333; /* темніший червоний */
+    background-color: #c82333;
 }
 
 .nav-link {
