@@ -3,7 +3,7 @@
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <div class="container">
-    <a class="navbar-brand" href="{% url 'home' %}" style="color: black">Marketplace</a>
+    <a class="navbar-brand"  style="color: black">Marketplace</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -11,7 +11,7 @@
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link {% if request.path == '/' or request.path == '/en/' %}active{% endif %}" href="{% url 'home' %}" style="color: black">Головна</a>
+
         </li>
         <li class="nav-item">
           <a class="nav-link {% if '/products' in request.path %}active{% endif %}" href="{% url 'product-list' %}" style="color: black">Товари</a>

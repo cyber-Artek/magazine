@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     "products",
     "reviews",
     "home",
+
 ]
 
 MIDDLEWARE = [
@@ -89,14 +90,14 @@ AUTH_PASSWORD_VALIDATORS = [
               "NumericPasswordValidator")},
 ]
 
-LANGUAGE_CODE = "uk"
+LANGUAGE_CODE = "en"
 LANGUAGES = [
-    ("uk", _("Українська")),
+    ("uk", _("Ukrainian")),
     ("en", _("English")),
     ("es", _("Español")),
 ]
 LOCALE_PATHS = [
-    BASE_DIR / "locale"
+    BASE_DIR / "locale",
 ]
 
 TIME_ZONE = "Europe/Kiev"
