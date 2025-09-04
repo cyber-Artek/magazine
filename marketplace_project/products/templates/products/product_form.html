@@ -1,12 +1,13 @@
 {% extends 'base.html' %}
-{% block title %}{% if form.instance.pk %}Редагувати товар{% else %}Створити товар{% endif %}{% endblock %}
+{% load i18n %}
+{% block title %}{% if form.instance.pk %}{% translate 'Edit product' %}{% else %}Створити товар{% endif %}{% endblock %}
 
 {% block content %}
-<h1>{% if form.instance.pk %}Редагувати{% else %}Створити{% endif %} товар</h1>
+<h1>{% if form.instance.pk %}{% translate 'Edit' %}{% else %}{% translate 'Create' %}{% endif %} {% translate 'product' %}</h1>
 
 <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
     {{ form.as_p }}
-    <button type="submit">{% if form.instance.pk %}Оновити{% else %}Додати{% endif %}</button>
+    <button type="submit">{% if form.instance.pk %}{% translate 'Update' %}% else %}{% translate 'Add' %}{% endif %}</button>
 </form>
 {% endblock %}

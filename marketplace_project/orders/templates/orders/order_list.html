@@ -1,12 +1,13 @@
 {% extends 'base.html' %}
-{% block title %}Мої замовлення{% endblock %}
+{% load i18n %}
+{% block title %}{% translate 'My orders' %}{% endblock %}
 {% block content %}
-<h1 class="mb-3">Ваші замовлення</h1>
+<h1 class="mb-3">{% translate 'Your orders' %}</h1>
 <ul class="list-group">
   {% for order in orders %}
     <li class="list-group-item">
       <a href="{% url 'order-detail' order.pk %}">
-        Замовлення №{{ order.pk }} — {{ order.status }} — {{ order.created_at|date:"d.m.Y" }}
+        {% translate 'Orders' %} №{{ order.pk }} — {{ order.status }} — {{ order.created_at|date:"d.m.Y" }}
       </a>
     </li>
   {% endfor %}

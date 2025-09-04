@@ -1,9 +1,10 @@
 {% load static %}
 {% load custom_tags %}
+{% load i18n %}
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <div class="container">
-    <a class="navbar-brand"  style="color: black">Marketplace</a>
+    <a class="navbar-brand"  style="color: black">{% translate 'Marketplace' %}</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -14,23 +15,23 @@
 
         </li>
         <li class="nav-item">
-          <a class="nav-link {% if '/products' in request.path %}active{% endif %}" href="{% url 'product-list' %}" style="color: black">Товари</a>
+          <a class="nav-link {% if '/products' in request.path %}active{% endif %}" href="{% url 'product-list' %}" style="color: black">{% translate 'Product' %}</a>
         </li>
 
         {% if user.is_authenticated %}
           {% if user.role == "is_seller" %}
           <li class="nav-item">
-            <a class="nav-link {% if '/products/product/add/' in request.path %}active{% endif %}" href="{% url 'product-add' %}" style="color: black">Створити товар</a>
+            <a class="nav-link {% if '/products/product/add/' in request.path %}active{% endif %}" href="{% url 'product-add' %}" style="color: black">{% translate 'Create product' %}</a>
           </li>
           {% endif %}
           <li class="nav-item">
-            <a class="nav-link {% if '/orders/cart/' in request.path %}active{% endif %}" href="{% url 'cart' %}" style="color: black">Кошик</a>
+            <a class="nav-link {% if '/orders/cart/' in request.path %}active{% endif %}" href="{% url 'cart' %}" style="color: black">{% translate 'Cart' %}</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link {% if '/orders/' in request.path and not '/cart/' in request.path %}active{% endif %}" href="{% url 'order-list' %}" style="color: black">Замовлення</a>
+            <a class="nav-link {% if '/orders/' in request.path and not '/cart/' in request.path %}active{% endif %}" href="{% url 'order-list' %}" style="color: black">{% translate 'Orders' %}</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link {% if '/users/profile/'|add:user.pk|stringformat:"s" in request.path %}active{% endif %}" href="{% url 'profile' user.pk %}" style="color: black">Профіль</a>
+            <a class="nav-link {% if '/users/profile/'|add:user.pk|stringformat:"s" in request.path %}active{% endif %}" href="{% url 'profile' user.pk %}" style="color: black">{% translate 'Profile' %}</a>
           </li>
         {% endif %}
       </ul>
@@ -38,15 +39,15 @@
       {% if user.is_authenticated %}
       <form action="{% url 'logout' %}" method="post" class="d-flex logout-form">
           {% csrf_token %}
-          <button class="btn logout-btn" type="submit">Вийти</button>
+          <button class="btn logout-btn" type="submit">{% translate 'Logout' %}</button>
       </form>
       {% else %}
       <ul class="navbar-nav">
         <li class="nav-item">
-          <a class="nav-link {% if '/users/login/' in request.path %}active{% endif %}" href="{% url 'login' %}" style="color: black">Увійти</a>
+          <a class="nav-link {% if '/users/login/' in request.path %}active{% endif %}" href="{% url 'login' %}" style="color: black">{% translate 'Login' %}</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link {% if '/users/register/' in request.path %}active{% endif %}" href="{% url 'register' %}" style="color: black">Реєстрація</a>
+          <a class="nav-link {% if '/users/register/' in request.path %}active{% endif %}" href="{% url 'register' %}" style="color: black">{% translate 'registration' %}</a>
         </li>
       </ul>
       {% endif %}

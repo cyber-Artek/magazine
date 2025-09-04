@@ -1,3 +1,5 @@
+
+{% load i18n %}
 <form
     method="post"
     hx-post="{% url 'review-create' product.pk %}"
@@ -6,5 +8,5 @@
 
     {% csrf_token %}
     {{ form.as_p }}
-    <button type="submit">Надіслати відгук</button>
+    <button type="submit">{% translate 'Send reviews' %}</button>
 </form>

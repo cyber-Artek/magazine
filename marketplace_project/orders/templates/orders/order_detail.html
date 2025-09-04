@@ -1,10 +1,11 @@
 {% extends 'base.html' %}
-{% block title %}Замовлення №{{ order.pk }}{% endblock %}
+{% load i18n %}
+{% block title %}{% translate 'Order' %} №{{ order.pk }}{% endblock %}
 
 {% block content %}
-<h1>Замовлення №{{ order.pk }}</h1>
-<p>Статус: {{ order.status }}</p>
-<p>Дата: {{ order.created_at }}</p>
+<h1>{% translate 'Order' %}№{{ order.pk }}</h1>
+<p>{% translate 'Status:' %}{{ order.status }}</p>
+<p>{% translate 'Date:' %} {{ order.created_at }}</p>
 
 <ul>
     {% for item in order.items.all %}

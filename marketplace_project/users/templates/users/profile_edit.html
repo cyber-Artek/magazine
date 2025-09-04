@@ -1,11 +1,12 @@
 {% extends 'base.html' %}
-{% block title %}Редагувати профіль{% endblock %}
+{% load i18n %}
+{% block title %}{% translate 'Edit profile' %}{% endblock %}
 
 {% block content %}
-<h1>Редагувати профіль</h1>
+<h1>{% translate 'Edit profile' %}</h1>
 <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
     {{ form.as_p }}
-    <button type="submit">Зберегти</button>
+    <button type="submit">{% translate 'Save' %}</button>
 </form>
 {% endblock %}

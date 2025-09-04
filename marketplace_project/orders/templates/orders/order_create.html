@@ -1,13 +1,14 @@
 {% extends "base.html" %}
-{% block title %}Оформлення замовлення{% endblock %}
+{% load i18n %}
+{% block title %}{% translate 'Placing an order' %}{% endblock %}
 
 {% block content %}
 <div class="container mt-4">
-    <h2>Оформлення замовлення</h2>
+    <h2>{% translate 'Placing an order' %}</h2>
     <form method="post">
         {% csrf_token %}
         {{ form.as_p }}
-        <button type="submit" class="btn btn-primary">Підтвердити</button>
+        <button type="submit" class="btn btn-primary">{% translate 'Confirm' %}</button>
     </form>
 </div>
 {% endblock %}

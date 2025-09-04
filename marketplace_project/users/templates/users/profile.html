@@ -1,19 +1,20 @@
 {% extends 'base.html' %}
-{% block title %}Профіль{% endblock %}
+{% load i18n %}
+{% block title %}{% translate 'Profile' %}{% endblock %}
 {% block content %}
 <div class="row justify-content-center">
   <div class="col-md-6">
     <div class="card shadow-sm">
       <div class="card-body">
-        <h2 class="card-title mb-3">Профіль користувача {{ user_obj.username }}</h2>
+        <h2 class="card-title mb-3">{% translate 'Profile User' %} {{ user_obj.username }}</h2>
         {% if user_obj.avatar %}
           <img src="{{ user_obj.avatar.url }}" class="img-thumbnail mb-3" width="120">
         {% endif %}
-        <p><strong>Ім'я магазину:</strong> {{ user_obj.store_name }}</p>
-        <p><strong>Опис:</strong> {{ user_obj.bio }}</p>
-        <p><strong>Платіжна інформація:</strong> {{ user_obj.payment_info }}</p>
+        <p><strong>{% translate 'Name' %}:</strong> {{ user_obj.store_name }}</p>
+        <p><strong>{% translate 'Description' %}:</strong> {{ user_obj.bio }}</p>
+        <p><strong>{% translate 'Payment informations' %}:</strong> {{ user_obj.payment_info }}</p>
         {% if user == user_obj %}
-          <a href="{% url 'profile-edit' %}" class="btn btn-warning mt-2">Редагувати</a>
+          <a href="{% url 'profile-edit' %}" class="btn btn-warning mt-2">{% translate 'Edit' %}</a>
         {% endif %}
       </div>
     </div>

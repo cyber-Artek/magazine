@@ -1,7 +1,9 @@
 {% extends 'base.html' %}
-{% block title %}Кошик{% endblock %}
+{% load i18n %}
+{% block title %}{% translate 'Cart' %}{% endblock %}
 {% block content %}
-<h1 class="mb-3">Кошик</h1>
+
+<h1 class="mb-3">{% translate 'Cart' %}</h1>
 
 {% if cart_items %}
   <ul class="list-group mb-3">
@@ -10,14 +12,14 @@
         {{ item.product.title }} — {{ item.quantity }} шт — {{ item.subtotal }} грн
         <form hx-post="{% url 'remove-from-cart' item.product.pk %}" hx-trigger="click" hx-target="closest li" hx-swap="outerHTML">
           {% csrf_token %}
-          <button type="submit" class="btn btn-sm btn-danger">Видалити</button>
+          <button type="submit" class="btn btn-sm btn-danger">{% translate 'Delete' %}</button>
         </form>
       </li>
     {% endfor %}
   </ul>
   <p><strong>Разом: {{ total }} грн</strong></p>
-  <a href="{% url 'order-create' %}" class="btn btn-success">Оформити замовлення</a>
+  <a href="{% url 'order-create' %}" class="btn btn-success">{% translate ' Make an order' %}</a>
 {% else %}
-  <p>Кошик порожній.</p>
+  <p>{% translate 'Cart is empty..' %}</p>
 {% endif %}
 {% endblock %}

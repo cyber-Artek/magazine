@@ -1,9 +1,10 @@
 {% extends 'base.html' %}
 {% block content %}
-<h2>Видалити товар: {{ object.title }}?</h2>
+{% load i18n %}
+<h2>{% translate 'Delete product' %}</h2>
 <form method="post">
     {% csrf_token %}
-    <button type="submit">Так, видалити</button>
-    <a href="{% url 'product-list' %}">Скасувати</a>
+    <button type="submit">{% translate 'Yes, delete' %}</button>
+    <a href="{% url 'product-list' %}">cancel</a>
 </form>
 {% endblock %}

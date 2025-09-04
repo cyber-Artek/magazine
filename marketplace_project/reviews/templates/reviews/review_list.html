@@ -1,3 +1,5 @@
+
+{% load i18n %}
 {% for review in reviews %}
     <div class="review">
         <strong>{{ review.reviewer.username }}</strong>
@@ -6,5 +8,5 @@
         <small>{{ review.created_at|date:"d.m.Y H:i" }}</small>
     </div>
 {% empty %}
-    <p>Відгуків ще немає.</p>
+    <p>{% translate 'No reviews yet'. %}</p>
 {% endfor %}

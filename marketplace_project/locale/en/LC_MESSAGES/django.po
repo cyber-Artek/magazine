@@ -1,0 +1,245 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-09-04 16:46+0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: .\marketplace_project\settings.py:95
+msgid "Ukrainian"
+msgstr ""
+
+#: .\marketplace_project\settings.py:96
+msgid "English"
+msgstr ""
+
+#: .\marketplace_project\settings.py:97
+msgid "Español"
+msgstr ""
+
+#: .\orders\templates\orders\cart.html:3 .\orders\templates\orders\cart.html:6
+#: .\templates\navbar.html:28
+msgid "Cart"
+msgstr ""
+
+#: .\orders\templates\orders\cart.html:15
+#: .\products\templates\products\product_detail.html:26
+#: .\products\templates\products\product_list.html:34
+msgid "Delete"
+msgstr ""
+
+#: .\orders\templates\orders\cart.html:21
+msgid " Make an order"
+msgstr ""
+
+#: .\orders\templates\orders\cart.html:23
+msgid "Cart is empty.."
+msgstr ""
+
+#: .\orders\templates\orders\order_create.html:3
+#: .\orders\templates\orders\order_create.html:7
+msgid "Placing an order"
+msgstr ""
+
+#: .\orders\templates\orders\order_create.html:11
+msgid "Confirm"
+msgstr ""
+
+#: .\orders\templates\orders\order_detail.html:3
+#: .\orders\templates\orders\order_detail.html:6
+msgid "Order"
+msgstr ""
+
+#: .\orders\templates\orders\order_detail.html:7
+msgid "Status:"
+msgstr ""
+
+#: .\orders\templates\orders\order_detail.html:8
+msgid "Date:"
+msgstr ""
+
+#: .\orders\templates\orders\order_list.html:3
+msgid "My orders"
+msgstr ""
+
+#: .\orders\templates\orders\order_list.html:5
+msgid "Your orders"
+msgstr ""
+
+#: .\orders\templates\orders\order_list.html:10 .\templates\navbar.html:31
+msgid "Orders"
+msgstr ""
+
+#: .\products\templates\products\product_confirm_delete.html:4
+msgid "Delete product"
+msgstr ""
+
+#: .\products\templates\products\product_confirm_delete.html:7
+msgid "Yes, delete"
+msgstr ""
+
+#: .\products\templates\products\product_detail.html:17
+msgid "Rating:"
+msgstr ""
+
+#: .\products\templates\products\product_detail.html:21
+msgid "Add to cart"
+msgstr ""
+
+#: .\products\templates\products\product_detail.html:25
+#: .\products\templates\products\product_form.html:6
+#: .\products\templates\products\product_list.html:33
+#: .\users\templates\users\profile.html:17
+msgid "Edit"
+msgstr ""
+
+#: .\products\templates\products\product_detail.html:32
+msgid "Reviews"
+msgstr ""
+
+#: .\products\templates\products\product_detail.html:38
+msgid "No reviews yet."
+msgstr ""
+
+#: .\products\templates\products\product_form.html:3
+msgid "Edit product"
+msgstr ""
+
+#: .\products\templates\products\product_form.html:6
+msgid "Create"
+msgstr ""
+
+#: .\products\templates\products\product_form.html:6
+msgid "product"
+msgstr ""
+
+#: .\products\templates\products\product_form.html:11
+msgid "Update"
+msgstr ""
+
+#: .\products\templates\products\product_form.html:11
+msgid "Add"
+msgstr ""
+
+#: .\products\templates\products\product_list.html:3
+#: .\products\templates\products\product_list.html:7
+msgid "Products"
+msgstr ""
+
+#: .\products\templates\products\product_list.html:10
+msgid "Search product..."
+msgstr ""
+
+#: .\products\templates\products\product_list.html:14
+msgid "Add product"
+msgstr ""
+
+#: .\products\templates\products\product_list.html:31
+msgid "Detail"
+msgstr ""
+
+#: .\products\templates\products\product_list.html:41
+msgid "No products yet"
+msgstr ""
+
+#: .\products\templates\products\product_list.html:49
+msgid "Previous"
+msgstr ""
+
+#: .\products\templates\products\product_list.html:51
+msgid "Page"
+msgstr ""
+
+#: .\products\templates\products\product_list.html:53
+msgid "Next"
+msgstr ""
+
+#: .\reviews\templates\reviews\review_form.html:11
+msgid "Send reviews"
+msgstr ""
+
+#: .\reviews\templates\reviews\review_list.html:11
+msgid "No reviews yet"
+msgstr ""
+
+#: .\reviews\templates\reviews\seller_reviews.html:3
+#: .\reviews\templates\reviews\seller_reviews.html:6
+msgid "Reviews about seller"
+msgstr ""
+
+#: .\reviews\templates\reviews\seller_reviews.html:17
+msgid " No reviews yet."
+msgstr ""
+
+#: .\templates\navbar.html:7
+msgid "Marketplace"
+msgstr ""
+
+#: .\templates\navbar.html:18
+msgid "Product"
+msgstr ""
+
+#: .\templates\navbar.html:24
+msgid "Create product"
+msgstr ""
+
+#: .\templates\navbar.html:34 .\users\templates\users\profile.html:3
+msgid "Profile"
+msgstr ""
+
+#: .\templates\navbar.html:42
+msgid "Logout"
+msgstr ""
+
+#: .\templates\navbar.html:47 .\users\templates\users\login.html:3
+#: .\users\templates\users\login.html:7 .\users\templates\users\login.html:11
+msgid "Login"
+msgstr ""
+
+#: .\templates\navbar.html:50
+msgid "registration"
+msgstr ""
+
+#: .\users\templates\users\profile.html:9
+msgid "Profile User"
+msgstr ""
+
+#: .\users\templates\users\profile.html:13
+msgid "Name"
+msgstr ""
+
+#: .\users\templates\users\profile.html:14
+msgid "Description"
+msgstr ""
+
+#: .\users\templates\users\profile.html:15
+msgid "Payment informations"
+msgstr ""
+
+#: .\users\templates\users\profile_edit.html:3
+#: .\users\templates\users\profile_edit.html:6
+msgid "Edit profile"
+msgstr ""
+
+#: .\users\templates\users\profile_edit.html:10
+msgid "Save"
+msgstr ""
+
+#: .\users\templates\users\register.html:3
+#: .\users\templates\users\register.html:7
+#: .\users\templates\users\register.html:11
+msgid "Registration"
+msgstr ""
