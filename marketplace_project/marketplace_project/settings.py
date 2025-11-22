@@ -21,7 +21,7 @@ DATABASES = {
         "NAME": BASE_DIR / "db.sqlite3",
     }
 }
-
+a = ()
 INSTALLED_APPS = [
     "django.contrib.admin",
     "django.contrib.auth",
