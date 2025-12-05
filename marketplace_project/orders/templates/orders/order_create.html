@@ -4,14 +4,37 @@
 
 {% block content %}
 <div class="container mt-4">
-    <h2>{% translate 'Placing an order' %}</h2>
-    <p class="text-muted mb-3">
-        {% translate 'Fill in the delivery details and payment card data (demo).' %}
-    </p>
+    <h2 class="mb-3">{% translate 'Placing an order' %}</h2>
     <form method="post" class="p-4 border rounded bg-light shadow-sm">
         {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit" class="btn btn-primary">
+        {{ form.non_field_errors }}
+
+        <h5 class="mb-3">Дані отримувача</h5>
+        {{ form.full_name.label_tag }} {{ form.full_name }}
+        {{ form.phone.label_tag }} {{ form.phone }}
+        {{ form.address.label_tag }} {{ form.address }}
+        {{ form.city.label_tag }} {{ form.city }}
+        {{ form.postal_code.label_tag }} {{ form.postal_code }}
+
+        <hr>
+        <h5 class="mb-3">Доставка</h5>
+        {{ form.delivery_method.label_tag }} {{ form.delivery_method }}
+        {{ form.delivery_department.label_tag }} {{ form.delivery_department }}
+
+        <hr>
+        <h5 class="mb-3">Спосіб оплати</h5>
+        {{ form.payment_method }}
+
+        <hr>
+        <h5 class="mb-3">Дані картки (якщо обрано оплату карткою)</h5>
+        {{ form.card_number.label_tag }} {{ form.card_number }}
+        {{ form.card_expiry.label_tag }} {{ form.card_expiry }}
+        {{ form.card_cvv.label_tag }} {{ form.card_cvv }}
+
+        <hr>
+        {{ form.comment.label_tag }} {{ form.comment }}
+
+        <button type="submit" class="btn btn-primary mt-3">
             {% translate 'Confirm' %}
         </button>
     </form>

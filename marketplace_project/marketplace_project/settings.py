@@ -111,14 +111,13 @@ LOGIN_URL = "login"
 LOGOUT_REDIRECT_URL = "login"
 LOGIN_REDIRECT_URL = "product-list"
 
-# ===== Налаштування email (приклад для Gmail) =====
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 EMAIL_HOST = "smtp.gmail.com"
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = os.environ.get("EMAIL_HOST_USER")  # твій email
-EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD")  # пароль або app password
+EMAIL_HOST_USER = os.environ.get("EMAIL_HOST_USER")
+EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD")
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
-# Куди надсилати нотифікації про замовлення
 ORDER_NOTIFICATION_EMAIL = os.environ.get("ORDER_NOTIFICATION_EMAIL", EMAIL_HOST_USER)
+

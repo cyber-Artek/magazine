@@ -1,21 +1,16 @@
-from django.views.generic import CreateView, ListView, DetailView
-from django.contrib.auth.mixins import LoginRequiredMixin
-from django.urls import reverse_lazy
-from .models import Order, OrderItem
-from .forms import OrderCreateForm
-from products.models import Product
-from django.http import HttpResponse, JsonResponse
-from django.shortcuts import get_object_or_404, redirect, render
-from django.http import JsonResponse
 from django.views import View
-from products.models import Product
-from .models import Order, OrderItem
 from django.views.generic import CreateView, ListView, DetailView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
-from .forms import OrderCreateForm
+from django.shortcuts import get_object_or_404, redirect, render
+from django.http import HttpResponse, JsonResponse
 from django.core.mail import send_mail
 from django.conf import settings
+
+from .models import Order, OrderItem
+from .forms import OrderCreateForm
+from products.models import Product
+
 
 class OrderCreateView(LoginRequiredMixin, CreateView):
     template_name = 'orders/order_create.html'
@@ -23,12 +18,17 @@ class OrderCreateView(LoginRequiredMixin, CreateView):
     success_url = reverse_lazy('order-list')
 
     def form_valid(self, form):
+        # Прив’язуємо користувача
         form.instance.buyer = self.request.user
+        payment_method = form.cleaned_data.get("payment_method")
+
+        # Спочатку зберігаємо замовлення
         response = super().form_valid(form)
 
         cart = self.request.session.get('cart', {})
         total = 0
 
+        # Створюємо позиції замовлення
         for product_id, quantity in cart.items():
             product = Product.objects.get(pk=product_id)
             subtotal = product.price * quantity
@@ -39,46 +39,67 @@ class OrderCreateView(LoginRequiredMixin, CreateView):
                 quantity=quantity
             )
 
-        # очищаємо корзину
+        # Зберігаємо загальну суму + статус в залежності від оплати
+        self.object.total_price = total
+        if payment_method == "card":
+            self.object.status = "paid"
+        else:
+            self.object.status = "new"
+        self.object.save()
+
+        # Очищаємо кошик
         self.request.session['cart'] = {}
 
-        # 🔹 Надсилаємо лист про нове замовлення
-        self.send_order_email(total=total, cart=cart)
+        # Надсилаємо лист на пошту
+        self.send_order_email()
 
         return response
 
-    def send_order_email(self, total, cart):
+    def send_order_email(self):
         owner_email = getattr(settings, "ORDER_NOTIFICATION_EMAIL", None)
         if not owner_email:
             return
 
-        lines = []
-        lines.append(f"Нове замовлення #{self.object.pk}")
-        lines.append(f"Покупець: {self.object.buyer.username}")
-        lines.append(f"ПІБ: {self.object.full_name}")
-        lines.append(f"Телефон: {self.object.phone}")
-        lines.append(f"Адреса: {self.object.address}, {self.object.city}, {self.object.postal_code}")
+        order = self.object
+        lines = [
+            f"Нове замовлення #{order.pk}",
+            f"Статус: {order.status}",
+            f"Спосіб оплати: {order.get_payment_method_display()}",
+            f"Спосіб доставки: {order.get_delivery_method_display() if order.delivery_method else ''}",
+            "",
+            f"Покупець: {order.buyer.username}",
+            f"ПІБ: {order.full_name}",
+            f"Телефон: {order.phone}",
+            f"Адреса: {order.address}, {order.city}, {order.postal_code}",
+            f"Відділення: {order.delivery_department or '-'}",
+            "",
+            "Товари:",
+        ]
+
+        for item in order.items.select_related("product"):
+            lines.append(f"- {item.product.title} x {item.quantity} = {item.product.price * item.quantity} грн")
+
         lines.append("")
-        lines.append("Товари:")
-
-        from products.models import Product
-
-        for product_id, quantity in cart.items():
-            product = Product.objects.get(pk=product_id)
-            lines.append(f"- {product.title} x {quantity} = {product.price * quantity} грн")
-
-        lines.append("")
-        lines.append(f"Разом: {total} грн")
+        lines.append(f"Разом: {order.total_price} грн")
+        if order.comment:
+            lines.append("")
+            lines.append(f"Коментар покупця: {order.comment}")
 
         message = "\n".join(lines)
 
-        send_mail(
-            subject=f"Нове замовлення #{self.object.pk}",
-            message=message,
-            from_email=getattr(settings, "DEFAULT_FROM_EMAIL", owner_email),
-            recipient_list=[owner_email],
-            fail_silently=True,
-        )
+        try:
+            send_mail(
+                subject=f"Нове замовлення #{order.pk}",
+                message=message,
+                from_email=getattr(settings, "DEFAULT_FROM_EMAIL", owner_email),
+                recipient_list=[owner_email],
+                fail_silently=True,  # 👈 ЩОБ НЕ ПАДАВ САЙТ
+            )
+        except Exception as e:
+            # На деві можна просто роздрукувати помилку в консоль
+            print("EMAIL ERROR:", e)
+
+
 
 
 class OrderListView(LoginRequiredMixin, ListView):
