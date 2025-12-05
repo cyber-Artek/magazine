@@ -14,6 +14,8 @@ from django.views.generic import CreateView, ListView, DetailView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from .forms import OrderCreateForm
+from django.core.mail import send_mail
+from django.conf import settings
 
 class OrderCreateView(LoginRequiredMixin, CreateView):
     template_name = 'orders/order_create.html'
@@ -25,15 +27,58 @@ class OrderCreateView(LoginRequiredMixin, CreateView):
         response = super().form_valid(form)
 
         cart = self.request.session.get('cart', {})
+        total = 0
+
         for product_id, quantity in cart.items():
             product = Product.objects.get(pk=product_id)
+            subtotal = product.price * quantity
+            total += subtotal
             OrderItem.objects.create(
                 order=self.object,
                 product=product,
                 quantity=quantity
             )
+
+        # очищаємо корзину
         self.request.session['cart'] = {}
+
+        # 🔹 Надсилаємо лист про нове замовлення
+        self.send_order_email(total=total, cart=cart)
+
         return response
+
+    def send_order_email(self, total, cart):
+        owner_email = getattr(settings, "ORDER_NOTIFICATION_EMAIL", None)
+        if not owner_email:
+            return
+
+        lines = []
+        lines.append(f"Нове замовлення #{self.object.pk}")
+        lines.append(f"Покупець: {self.object.buyer.username}")
+        lines.append(f"ПІБ: {self.object.full_name}")
+        lines.append(f"Телефон: {self.object.phone}")
+        lines.append(f"Адреса: {self.object.address}, {self.object.city}, {self.object.postal_code}")
+        lines.append("")
+        lines.append("Товари:")
+
+        from products.models import Product
+
+        for product_id, quantity in cart.items():
+            product = Product.objects.get(pk=product_id)
+            lines.append(f"- {product.title} x {quantity} = {product.price * quantity} грн")
+
+        lines.append("")
+        lines.append(f"Разом: {total} грн")
+
+        message = "\n".join(lines)
+
+        send_mail(
+            subject=f"Нове замовлення #{self.object.pk}",
+            message=message,
+            from_email=getattr(settings, "DEFAULT_FROM_EMAIL", owner_email),
+            recipient_list=[owner_email],
+            fail_silently=True,
+        )
 
 
 class OrderListView(LoginRequiredMixin, ListView):

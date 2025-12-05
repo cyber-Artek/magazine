@@ -5,10 +5,15 @@
 {% block content %}
 <div class="container mt-4">
     <h2>{% translate 'Placing an order' %}</h2>
-    <form method="post">
+    <p class="text-muted mb-3">
+        {% translate 'Fill in the delivery details and payment card data (demo).' %}
+    </p>
+    <form method="post" class="p-4 border rounded bg-light shadow-sm">
         {% csrf_token %}
         {{ form.as_p }}
-        <button type="submit" class="btn btn-primary">{% translate 'Confirm' %}</button>
+        <button type="submit" class="btn btn-primary">
+            {% translate 'Confirm' %}
+        </button>
     </form>
 </div>
 {% endblock %}
