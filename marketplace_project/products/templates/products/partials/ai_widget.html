@@ -1,0 +1,36 @@
+{# templates/products/partials/ai_widget.html #}
+{% load i18n %}
+
+<div class="card mt-4 shadow-sm">
+  <div class="card-header">
+    🤖 {% translate 'AI-помічник товару' %}
+  </div>
+  <div class="card-body">
+    <form
+      method="post"
+      hx-post="{% url 'product-ai-help' product.pk %}"
+      hx-target="#ai-answer"
+      hx-swap="innerHTML"
+    >
+      {% csrf_token %}
+      <div class="mb-2">
+        <label class="form-label">
+          {% translate 'Запитай AI про цей товар' %}
+        </label>
+        <textarea
+          name="question"
+          class="form-control"
+          rows="2"
+          placeholder="{% translate 'Наприклад: Розпиши, що входить у комплект і кому підійде цей товар.' %}"
+        ></textarea>
+      </div>
+      <button type="submit" class="btn btn-outline-primary">
+        {% translate 'Запитати AI-помічника' %}
+      </button>
+    </form>
+
+    <div id="ai-answer" class="mt-3 small text-muted">
+      <em>{% translate 'AI-пояснення зʼявиться тут після запиту.' %}</em>
+    </div>
+  </div>
+</div>

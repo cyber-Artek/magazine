@@ -1,15 +1,76 @@
 {% extends 'base.html' %}
 {% load i18n %}
+
 {% block title %}{% translate 'Registration' %}{% endblock %}
+
 {% block content %}
-<div class="row justify-content-center">
-  <div class="col-md-6">
-    <h2 class="mb-3">{% translate 'Registration' %}</h2>
-    <form method="post" class="p-4 border rounded bg-light shadow-sm">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit" class="btn btn-success w-100">{% translate 'Registration' %}</button>
-    </form>
-  </div>
+
+<style>
+    .auth-card {
+        border-radius: 12px;
+        background: #ffffff;
+        padding: 30px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        transition: 0.3s;
+    }
+    .auth-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 6px 18px rgba(0,0,0,0.15);
+    }
+    .auth-title {
+        font-weight: 700;
+        font-size: 28px;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+    .form-control {
+        border-radius: 8px !important;
+    }
+    .btn-auth {
+        border-radius: 8px;
+        padding: 10px;
+        font-size: 18px;
+        font-weight: 600;
+    }
+    .auth-wrapper {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 70vh;
+    }
+</style>
+
+<div class="auth-wrapper">
+    <div class="col-md-5 auth-card">
+
+        <h2 class="auth-title">
+            ✨ {% translate 'Create an Account' %}
+        </h2>
+
+        <form method="post">
+            {% csrf_token %}
+
+            {% for field in form %}
+                <div class="mb-3">
+                    <label class="form-label fw-semibold">{{ field.label }}</label>
+                    {{ field }}
+                    {% if field.errors %}
+                        <div class="text-danger small">{{ field.errors }}</div>
+                    {% endif %}
+                </div>
+            {% endfor %}
+
+            <button type="submit" class="btn btn-success w-100 btn-auth">
+                {% translate 'Register' %}
+            </button>
+        </form>
+
+        <p class="text-center mt-3">
+            {% translate 'Already have an account?' %}
+            <a href="{% url 'login' %}">{% translate 'Login' %}</a>
+        </p>
+
+    </div>
 </div>
+
 {% endblock %}

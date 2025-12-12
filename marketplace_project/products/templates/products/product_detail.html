@@ -10,15 +10,21 @@
   {% else %}
     <img src="{% static 'images/no-image.png' %}" class="card-img-top" alt="No image">
   {% endif %}
+
   <div class="card-body">
     <h2 class="card-title">{{ product.title }}</h2>
     <p class="card-text">{{ product.description }}</p>
     <p class="card-text"><strong>{{ product.price }} грн</strong></p>
     <p>{% translate 'Rating:' %} {{ average_rating }}</p>
 
-    <form method="post" hx-post="{% url 'add-to-cart' product.pk %}" hx-target="#cart-button-{{ product.pk }}" hx-swap="outerHTML">
+    <form method="post"
+          hx-post="{% url 'add-to-cart' product.pk %}"
+          hx-target="#cart-button-{{ product.pk }}"
+          hx-swap="outerHTML">
       {% csrf_token %}
-      <button id="cart-button-{{ product.pk }}" type="submit" class="btn btn-primary mb-2">{% translate 'Add to cart' %}</button>
+      <button id="cart-button-{{ product.pk }}" type="submit" class="btn btn-primary mb-2">
+        {% translate 'Add to cart' %}
+      </button>
     </form>
 
     {% if user.is_authenticated and user.is_seller and product.seller == user %}
@@ -28,9 +34,64 @@
   </div>
 </div>
 
+
+<!-- 🔥🔥 AI ПОМІЧНИК — ПРАЦЮЮЧА ВЕРСІЯ -->
+<h3 class="mt-4">AI Помічник</h3>
+
+<div id="ai-chat-box" class="border p-3 mb-3"
+     style="max-height: 300px; overflow-y: auto; background: #f8f9fa;">
+</div>
+
+<div class="input-group mb-3">
+  <input id="ai-question" type="text" class="form-control"
+         placeholder="Поставте питання про товар...">
+
+  <!-- ✔ URL всередині кнопки — без редиректів -->
+  <button class="btn btn-primary"
+          onclick="sendAIMessage('{% url 'product-ai-chat' product.id %}')">
+    Запитати
+  </button>
+</div>
+
+<script>
+function sendAIMessage(url) {
+    let input = document.getElementById("ai-question");
+    let question = input.value.trim();
+    if (!question) return;
+
+    let chat = document.getElementById("ai-chat-box");
+    chat.innerHTML += `<div><b>Ви:</b> ${question}</div>`;
+
+    fetch(url, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+            "X-CSRFToken": "{{ csrf_token }}",
+        },
+        body: new URLSearchParams({ question: question })
+    })
+    .then(res => res.json())
+    .then(data => {
+        let answer = data.answer || "Помилка: відповідь порожня.";
+        chat.innerHTML += `<div><b>AI:</b> ${answer}</div>`;
+        chat.scrollTop = chat.scrollHeight;
+    })
+    .catch(err => {
+        chat.innerHTML += `<div style="color:red;"><b>AI Error:</b> ${err}</div>`;
+    });
+
+    input.value = "";
+}
+</script>
+<!-- 🔥 Кінець AI блоку -->
+
+
 <hr>
+
 <h3>{% translate 'Reviews' %}</h3>
+
 {% include 'reviews/review_form.html' with product=product %}
+
 <div id="reviews">
   {% for review in product.reviews.all %}
     {% include "reviews/review_item.html" with review=review %}
@@ -38,4 +99,5 @@
     <p>{% translate 'No reviews yet.' %}</p>
   {% endfor %}
 </div>
+
 {% endblock %}
