@@ -10,10 +10,26 @@ class UserRegisterView(CreateView):
     form_class = UserRegisterForm
     success_url = reverse_lazy('login')
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        # show login tab content on the same screen
+        context["login_form"] = UserLoginForm()
+        context["register_form"] = context.get("form")
+        context["active_tab"] = "register"
+        return context
+
 
 class UserLoginView(LoginView):
     template_name = 'users/login.html'
     authentication_form = UserLoginForm
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        # show registration tab content on the same screen
+        context["login_form"] = context.get("form")
+        context["register_form"] = UserRegisterForm()
+        context["active_tab"] = "login"
+        return context
 
 
 class UserLogoutView(LogoutView):

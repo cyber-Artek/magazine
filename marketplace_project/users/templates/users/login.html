@@ -2,14 +2,68 @@
 {% load i18n %}
 {% block title %}{% translate 'Login' %}{% endblock %}
 {% block content %}
-<div class="row justify-content-center">
-  <div class="col-md-5">
-    <h2 class="mb-3">{% translate 'Login' %}</h2>
-    <form method="post" class="p-4 border rounded bg-light shadow-sm">
-      {% csrf_token %}
-      {{ form.as_p }}
-      <button type="submit" class="btn btn-primary w-100">{% translate 'Login' %}</button>
-    </form>
+<div class="auth-shell">
+  <div class="glass-card shadow-lg">
+    <ul class="nav nav-tabs nav-fill auth-tabs" id="authTab" role="tablist">
+      <li class="nav-item" role="presentation">
+        <button class="nav-link {% if active_tab == 'login' %}active{% endif %}"
+                id="login-tab"
+                data-bs-toggle="tab"
+                data-bs-target="#login-pane"
+                type="button" role="tab">
+          {% translate 'Login' %}
+        </button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link {% if active_tab == 'register' %}active{% endif %}"
+                id="register-tab"
+                data-bs-toggle="tab"
+                data-bs-target="#register-pane"
+                type="button" role="tab">
+          {% translate 'Registration' %}
+        </button>
+      </li>
+    </ul>
+
+    <div class="tab-content p-4">
+      <div class="tab-pane fade {% if active_tab == 'login' %}show active{% endif %}" id="login-pane" role="tabpanel">
+        <h2 class="auth-title">{% translate 'Welcome back' %}</h2>
+        <form method="post" action="{% url 'login' %}" novalidate class="needs-validation">
+          {% csrf_token %}
+          {% for field in login_form %}
+            <div class="mb-3">
+              <label class="form-label fw-semibold">{{ field.label }}</label>
+              {{ field }}
+              {% if field.errors %}
+                <div class="text-danger small">{{ field.errors }}</div>
+              {% endif %}
+            </div>
+          {% endfor %}
+          <button type="submit" class="btn btn-primary w-100 py-2 auth-btn">
+            {% translate 'Login' %}
+          </button>
+        </form>
+      </div>
+
+      <div class="tab-pane fade {% if active_tab == 'register' %}show active{% endif %}" id="register-pane" role="tabpanel">
+        <h2 class="auth-title">{% translate 'Create account' %}</h2>
+        <form method="post" action="{% url 'register' %}" novalidate class="needs-validation">
+          {% csrf_token %}
+          {% for field in register_form %}
+            <div class="mb-3">
+              <label class="form-label fw-semibold">{{ field.label }}</label>
+              {{ field }}
+              {% if field.errors %}
+                <div class="text-danger small">{{ field.errors }}</div>
+              {% endif %}
+            </div>
+          {% endfor %}
+          <button type="submit" class="btn btn-success w-100 py-2 auth-btn">
+            {% translate 'Register' %}
+          </button>
+        </form>
+      </div>
+    </div>
   </div>
 </div>
 {% endblock %}
